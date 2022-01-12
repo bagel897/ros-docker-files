@@ -1,0 +1,22 @@
+version: "3.8"
+services:
+  ros:
+    container_name: ros
+    build: .
+    environment:
+      - DISPLAY=${DISPLAY}
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - $HOME/.ros:/root/.ros
+      - $HOME/code/hart/ros:/ros
+      - $HOME/.config/nvim:/root/.config/nvim
+      - $HOME/.SpaceVim.d:/root/.SpaceVim.d
+      #- $HOME/code/hart/ros/tf.rviz:/opt/ros/noetic/share/rviz/default.rviz
+    restart: always
+    network_mode: host
+    command: roscore
+    cap_add:
+    - SYS_PTRACE
+    devices:
+      - "/dev/dri/renderD128:/dev/dri/renderD128"
+
